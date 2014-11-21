@@ -1,13 +1,18 @@
 :- module(debug, [pldoc/0, portray_list_innerds/1]).
 /**   <module> Consult me to bring up normal dev environment.
 
-   To run the server, query weblog_demo/0.
+   To run the server, query cutterselect/0.
    To run the pldoc server, query pldoc/0, which starts the
    pldoc server on http://127.0.0.1:4040/help/source
 
    @copyright Copyright (C) 2012, University of Houston
    Released under the LGPL as part of the Weblog project
+
+   This file is part of cutterselect.
+   It is licensed under the MIT license.
 */
+
+:- license(lgpl_compatible).
 
 % Needed for http:location/3, don't remove even if red!!!
 :- use_module(library(http/http_path)).
@@ -18,12 +23,7 @@ http:location(pldoc, root('help/source'), [priority(10)]).
 
 :- use_module(library(doc_http)).
 :- doc_server(4040).
-% makes codes style strings be "abc" instead of numbers
-:- use_module(library(portray_text)).
-:- portray_text(true).
-% makes string style strings be `abc` instead of "abc"
-% which is ez to confuse with codes
-:- set_prolog_flag(backquoted_string, true).
+
 % more reasonable default for how many items to print before ellipsizing
 :- set_prolog_flag(toplevel_print_options,
 	[backquoted_string(true), max_depth(9999),
@@ -62,10 +62,10 @@ portray_list_innerds([H|T]) :-
 :- debug(weblog).
 
 :- ensure_loaded(load).
-:- use_module(weblogdemo).
+:- use_module(cutterselect).
 
 % reexport so user can control from the interactor
-:- reexport(weblogdemo, [weblog_demo/0, start_server/0, stop_server/0]).
+:- reexport(cutterselect, [cutterselect/0, start_server/0, stop_server/0]).
 
 %%	pldoc is det
 %
@@ -80,7 +80,7 @@ pldoc :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\
 %                                           %\n\
 %    To run the pldoc server query pldoc.   %\n\
-% To run the weblog demo query weblog_demo. %\n\
+% To run cutterselect query cutterselect/0. %\n\
 %                                           %\n\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%').
 
